@@ -15,8 +15,38 @@ public class AppDbContext : DbContext
         DbPath = Path.Join(path, "AuthApp.db");
     }
 
-    // The following configures EF to create a Sqlite database file in the
-    // special "local" folder for your platform.
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite($"Data Source={DbPath}");
+        => options.UseSqlite($"Data Source={DbPath}") // Configures EF to create a Sqlite database file in the special "local" folder for your platform.
+        .UseSeeding((context, _) =>
+        {
+            var testPayment = context.Set<PaymentDetail>().FirstOrDefault();
+            if (testPayment is null)
+            {
+                context.Set<PaymentDetail>().Add(new PaymentDetail
+                {
+                    PaymentDetailId = 1,
+                    CardOwnerName = "John Doe",
+                    CardNumber = "1234567890123456",
+                    ExpirationDate = "12/12",
+                    SecurityCode = "123"
+                });
+                context.SaveChanges();
+            }
+        })
+        .UseAsyncSeeding(async (context, _, cancellationToken) =>
+        {
+            var testPayment = await context.Set<PaymentDetail>().FirstOrDefaultAsync();
+            if (testPayment is null)
+            {
+                context.Set<PaymentDetail>().Add(new PaymentDetail
+                {
+                    PaymentDetailId = 1,
+                    CardOwnerName = "John Doe",
+                    CardNumber = "1234567890123456",
+                    ExpirationDate = "12/12",
+                    SecurityCode = "123"
+                });
+                await context.SaveChangesAsync();
+            }
+        });
 }

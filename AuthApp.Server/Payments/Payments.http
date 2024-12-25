@@ -1,0 +1,12 @@
+@AuthApp.Server_HostAddress = http://localhost:5145
+
+GET {{AuthApp.Server_HostAddress}}/payments/1
+Accept: application/json
+
+###
+
+
+GET {{AuthApp.Server_HostAddress}}/payments
+Accept: application/json
+
+###

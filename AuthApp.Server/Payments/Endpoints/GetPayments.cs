@@ -4,13 +4,13 @@ using AuthApp.Server.Data.Models;
 
 namespace AuthApp.Server.Payments.Endpoints;
 
-public class GetPaymentById : IEndpoint
+public class GetPayments : IEndpoint
 {
     public static void Map(IEndpointRouteBuilder app)
     {
-        app.MapGet("/{id}", async (AppDbContext db, int id) =>
+        app.MapGet("/", async (AppDbContext db) =>
         {
-            var payment = await db.PaymentDetails.FindAsync(id);
+            var payment = db.PaymentDetails;
             if (payment is null)
             {
                 return Results.NotFound();

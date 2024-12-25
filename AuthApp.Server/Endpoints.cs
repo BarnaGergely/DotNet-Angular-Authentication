@@ -1,5 +1,6 @@
 ﻿using AuthApp.Server.Common.Api;
 using AuthApp.Server.Payments.Endpoints;
+using AuthApp.Server.WeatherForecast.Endpoints;
 
 namespace AuthApp.Server;
 
@@ -8,14 +9,25 @@ public static class Endpoints
     public static void MapEndpoints(this WebApplication app)
     {
         app.MapPaymentsEndpoints();
+        app.MapWeatherForecastEndpoints();
     }
 
     private static void MapPaymentsEndpoints(this IEndpointRouteBuilder app)
     {
-        var endpoints = app.MapGroup("/weatherforecast")
+        var endpoints = app.MapGroup("/payments")
             .WithTags("Payments");
         endpoints.MapPublicGroup()
+            .MapEndpoint<GetPayments>()
             .MapEndpoint<GetPaymentById>();
+
+    }
+
+    private static void MapWeatherForecastEndpoints(this IEndpointRouteBuilder app)
+    {
+        var endpoints = app.MapGroup("/weatherforecast")
+            .WithTags("WeatherForecast");
+        endpoints.MapPublicGroup()
+            .MapEndpoint<GetWeatherForecast>();
     }
 
     private static RouteGroupBuilder MapPublicGroup(this IEndpointRouteBuilder app, string? prefix = null)
