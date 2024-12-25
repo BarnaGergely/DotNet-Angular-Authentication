@@ -25,7 +25,7 @@
   <ItemGroup>
     <Folder Include="Common\Services\" />
     <Folder Include="Data\Migrations\" />
-    <Folder Include="Data\Models\" />
+    <Folder Include="Payments\" />
   </ItemGroup>
 
 </Project>
