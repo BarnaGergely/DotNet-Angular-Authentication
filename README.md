@@ -1,5 +1,11 @@
 # Asp.Net Core Angular Authentication Practice
 
+## Commands
+
+	- `cd AuthApp.Server`
+- Create Migration: `dotnet ef migrations add <MigrationName>  --output-dir Data/Migrations`
+- Migrate Database: `dotnet ef database update`
+
 ## Notes and Tasks
 
 - [] Analyze and implement good practices from this project: <https://github.com/nikosanif/angular-authentication>
