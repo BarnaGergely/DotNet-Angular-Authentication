@@ -1,6 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../environments/environment.development';
 
 interface WeatherForecast {
   date: string;
@@ -25,7 +26,7 @@ export class WeatherForecastComponent implements OnInit {
   }
 
   getForecasts() {
-    this.http.get<WeatherForecast[]>('/api/weatherforecast').subscribe({
+    this.http.get<WeatherForecast[]>(environment.apiUrl + '/weatherforecast').subscribe({
       next: (result) => {
         this.forecasts = result;
       },
