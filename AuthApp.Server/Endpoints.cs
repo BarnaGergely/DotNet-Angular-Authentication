@@ -9,11 +9,12 @@ public static class Endpoints
     public static void MapEndpoints(this WebApplication app)
     {
         app.MapGroup("/api")
-            .MapPaymentsEndpoints()
+            .MapPaymentsEndpoints();
+        app.MapGroup("/api")
             .MapWeatherForecastEndpoints();
     }
 
-    private static RouteGroupBuilder MapPaymentsEndpoints(this IEndpointRouteBuilder app)
+    private static void MapPaymentsEndpoints(this IEndpointRouteBuilder app)
     {
         var endpoints = app.MapGroup("/payments")
             .WithTags("Payments");
@@ -23,17 +24,15 @@ public static class Endpoints
             .MapEndpoint<CreatePayment>()
             .MapEndpoint<UpdatePayment>()
             .MapEndpoint<DeletePayment>();
-        return endpoints;
 
     }
 
-    private static RouteGroupBuilder MapWeatherForecastEndpoints(this IEndpointRouteBuilder app)
+    private static void MapWeatherForecastEndpoints(this IEndpointRouteBuilder app)
     {
         var endpoints = app.MapGroup("/weatherforecast")
             .WithTags("WeatherForecast");
         endpoints.MapPublicGroup()
             .MapEndpoint<GetWeatherForecast>();
-        return endpoints;
     }
 
     private static RouteGroupBuilder MapPublicGroup(this IEndpointRouteBuilder app, string? prefix = null)
