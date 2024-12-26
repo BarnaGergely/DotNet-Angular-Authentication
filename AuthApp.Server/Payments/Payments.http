@@ -1,12 +1,25 @@
-@AuthApp.Server_HostAddress = http://localhost:5145
+@AuthApp.Server_HostAddress = http://localhost:5145/api
+
+# DOCS: https://learn.microsoft.com/en-us/aspnet/core/test/http-files?view=aspnetcore-9.0
+
+GET {{AuthApp.Server_HostAddress}}/payments
+Accept: application/json
+
+###
 
 GET {{AuthApp.Server_HostAddress}}/payments/1
 Accept: application/json
 
 ###
 
-
-GET {{AuthApp.Server_HostAddress}}/payments
+POST {{AuthApp.Server_HostAddress}}/payments
 Accept: application/json
+Content-Type: application/json
+{
+    "cardOwnerName": "Maktap Abdul",
+    "cardNumber": "56456132154",
+    "expirationDate": "10/12",
+    "securityCode": "456"
+}
 
 ###
