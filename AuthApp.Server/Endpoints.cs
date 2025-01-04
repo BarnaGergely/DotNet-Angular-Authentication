@@ -9,16 +9,30 @@ public static class Endpoints
 {
     public static void MapEndpoints(this WebApplication app)
     {
-        var apiGroup = app.MapGroup("/api");
 
-        if (app.Environment.IsDevelopment())
-        {
-            apiGroup.MapOpenApi(); // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-        }
+        app.MapOpenApiEndpoints();
+
+        var apiGroup = app.MapGroup("/api");
         apiGroup//.RequireAuthorization()
             .MapPaymentsEndpoints();
         apiGroup.MapWeatherForecastEndpoints();
         apiGroup.MapIdentityApi<IdentityUser>();
+    }
+
+    private static void MapOpenApiEndpoints(this WebApplication app)
+    {
+        app.MapOpenApi(); // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+        if (app.Environment.IsDevelopment())
+        {
+
+            // In the future we should use Scalar for production environments
+            // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/openapi/using-openapi-documents?view=aspnetcore-9.0
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/openapi/v1.json", "v1");
+            });
+
+        }
     }
 
     private static void MapPaymentsEndpoints(this IEndpointRouteBuilder app)
