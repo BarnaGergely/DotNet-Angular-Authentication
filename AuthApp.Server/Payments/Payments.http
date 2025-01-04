@@ -21,6 +21,7 @@ POST {{AuthApp.Server_HostAddress}}/payments
 Accept: application/json
 Content-Type: application/json
 {
+    "paymentDetailId": 0,    
     "cardOwnerName": "Maktap Abdul",
     "cardNumber": "56456132154",
     "expirationDate": "10/12",
@@ -30,5 +31,21 @@ Content-Type: application/json
 ###
 
 # TODO: Update
+PUT {{AuthApp.Server_HostAddress}}/payments/1
+Accept: application/json
+Content-Type: application/json
+{
+    "paymentDetailId": 1,
+    "cardOwnerName": "Maktap fjk",
+    "cardNumber": "56456132154",
+    "expirationDate": "10/12",
+    "securityCode": "456"
+}
+
+###
 
 # TODO: Delete
+DELETE {{AuthApp.Server_HostAddress}}/payments/14
+Accept: application/json
+
+###
