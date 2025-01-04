@@ -1,9 +1,10 @@
 ﻿using AuthApp.Server.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AuthApp.Server.Data;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext
 {
     public DbSet<PaymentDetail> PaymentDetails { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿using AuthApp.Server.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -10,6 +11,12 @@ public static class ConfigureServices
     {
         builder.AddSerilog();
         builder.Services.AddOpenApi(); // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+        builder.Services.AddAuthorization();
+
+        // Add identity services
+       builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+            .AddEntityFrameworkStores<AppDbContext>();
+
         builder.AddDatabase();
     }
 

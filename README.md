@@ -8,7 +8,8 @@
 
 ## Notes and Tasks
 
-- [] Create Payment Endpoints https://youtu.be/OZGdKYzUYvU?si=Netk-wPv7Wk9OVEV&t=1008
+- [] Registration: 
+- [x] Create Payment Endpoints https://youtu.be/OZGdKYzUYvU?si=Netk-wPv7Wk9OVEV&t=1008
 - https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/security?view=aspnetcore-9.0
 - [] Analyze and implement good practices from this project: <https://github.com/nikosanif/angular-authentication>
 

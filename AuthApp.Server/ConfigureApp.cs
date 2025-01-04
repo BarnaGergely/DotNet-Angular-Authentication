@@ -1,4 +1,5 @@
 ﻿using AuthApp.Server.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -9,14 +10,14 @@ public static class ConfigureApp
     {
 
         app.UseSerilogRequestLogging();
-        if (app.Environment.IsDevelopment())
-            app.MapOpenApi(); // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         app.UseHttpsRedirection();
         app.UseDefaultFiles();
         app.MapStaticAssets();
+        //app.UseAuthorization();
         app.MapEndpoints();
         app.MapFallbackToFile("/index.html");
         await app.EnsureDatabaseCreated();
+        
     }
 
     private static async Task EnsureDatabaseCreated(this WebApplication app)

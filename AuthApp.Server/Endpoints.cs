@@ -1,6 +1,7 @@
 ﻿using AuthApp.Server.Common.Api;
 using AuthApp.Server.Payments.Endpoints;
 using AuthApp.Server.WeatherForecast.Endpoints;
+using Microsoft.AspNetCore.Identity;
 
 namespace AuthApp.Server;
 
@@ -8,10 +9,16 @@ public static class Endpoints
 {
     public static void MapEndpoints(this WebApplication app)
     {
-        app.MapGroup("/api")
+        var apiGroup = app.MapGroup("/api");
+
+        if (app.Environment.IsDevelopment())
+        {
+            apiGroup.MapOpenApi(); // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+        }
+        apiGroup//.RequireAuthorization()
             .MapPaymentsEndpoints();
-        app.MapGroup("/api")
-            .MapWeatherForecastEndpoints();
+        apiGroup.MapWeatherForecastEndpoints();
+        apiGroup.MapIdentityApi<IdentityUser>();
     }
 
     private static void MapPaymentsEndpoints(this IEndpointRouteBuilder app)
