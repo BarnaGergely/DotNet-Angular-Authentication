@@ -7,6 +7,7 @@ namespace AuthApp.Server.Data;
 public class AppDbContext : IdentityDbContext
 {
     public DbSet<PaymentDetail> PaymentDetails { get; set; }
+    DbSet<AppUser> AppUsers { get; set; }
 
     public string DbPath { get; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)

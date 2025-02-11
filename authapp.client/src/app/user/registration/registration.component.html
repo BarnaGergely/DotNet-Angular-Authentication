@@ -1,7 +1,9 @@
 <h2>Sign Up</h2>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <input type="text" placeholder="Full Name" formControlName="fullName">
+    <div *ngIf="hasDisplayError('fullName') && form.controls['fullName'].hasError('required')">Empty</div>
     <input type="email" placeholder="Email" formControlName="email">
+    <div *ngIf="hasDisplayError('email') && form.controls['email'].hasError('required')">Empty</div>
     <input type="password" placeholder="Password" formControlName="password">
     <input type="password" placeholder="Confirm Password" formControlName="confirmPassword">
     <button type="submit">Register</button>

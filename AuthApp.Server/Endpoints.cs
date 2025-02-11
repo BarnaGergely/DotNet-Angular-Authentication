@@ -1,7 +1,8 @@
-﻿using AuthApp.Server.Common.Api;
+﻿using AuthApp.Server.Authentication.Endpoints;
+using AuthApp.Server.Common.Api;
+using AuthApp.Server.Data.Models;
 using AuthApp.Server.Payments.Endpoints;
 using AuthApp.Server.WeatherForecast.Endpoints;
-using Microsoft.AspNetCore.Identity;
 
 namespace AuthApp.Server;
 
@@ -16,7 +17,7 @@ public static class Endpoints
         apiGroup//.RequireAuthorization()
             .MapPaymentsEndpoints();
         apiGroup.MapWeatherForecastEndpoints();
-        apiGroup.MapIdentityApi<IdentityUser>();
+        apiGroup.MapAuthenticationEndpoints();
     }
 
     private static void MapOpenApiEndpoints(this WebApplication app)
@@ -54,6 +55,14 @@ public static class Endpoints
             .WithTags("WeatherForecast");
         endpoints.MapPublicGroup()
             .MapEndpoint<GetWeatherForecast>();
+    }
+
+    private static void MapAuthenticationEndpoints(this IEndpointRouteBuilder app)
+    {
+        var endpoints = app.MapGroup("/auth")
+            .WithTags("Authentication");
+        endpoints.MapIdentityApi<AppUser>();
+        endpoints.MapEndpoint<Signup>();
     }
 
     private static RouteGroupBuilder MapPublicGroup(this IEndpointRouteBuilder app, string? prefix = null)

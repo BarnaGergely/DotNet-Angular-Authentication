@@ -1,6 +1,6 @@
 ﻿using AuthApp.Server.Data;
+using AuthApp.Server.Data.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace AuthApp.Server;
@@ -14,8 +14,12 @@ public static class ConfigureServices
         builder.Services.AddAuthorization();
 
         // Add identity services
-       builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+       builder.Services.AddIdentityApiEndpoints<AppUser>()
             .AddEntityFrameworkStores<AppDbContext>();
+        builder.Services.Configure<IdentityOptions>(options =>
+        {
+            options.User.RequireUniqueEmail = true;
+        });
 
         builder.AddDatabase();
     }
